@@ -1,5 +1,5 @@
 # Beagle
-Beagle 2021 (COGAPLEX & ROBOMATION)
+Beagle 2021 (ROBOMATION & COGAPLEX)
 
 ### install newest version of nodejs, npm
 ```
@@ -30,13 +30,13 @@ roslaunch rosbridge_server rosbridge_websocket.launch
 ```
 cd ~
 
-git clone https://github.com/papaGeppetto/Beagle.git
+git clone https://github.com/RobomationLAB/Beagle_ROS.git
 
-cd Beagle
+cd Beagle_ROS
 catkin_make
 cd src/GUI
 npm install
-source ~/Beagle/devel/setup.bash
+source ~/Beagle_ROS/devel/setup.bash
 ```
 ### start Beagle package
 ```
@@ -45,4 +45,4 @@ source ~/Beagle/devel/setup.bash
 
 
 # NanoLidar
-NanoLidar 2021 (ROBOMATION)
+NanoLidar 2021 (ROBOMATION & COGAPLEX)
