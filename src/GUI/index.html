@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Beagle Car</title>
+
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+
+  <script type="text/javascript" src="eventemitter2.js"></script>
+  <script type="text/javascript" src="roslib.js"></script>
+  <script type="text/javascript" src="ros3d.js"></script>
+
+  <div id="CoNAtitle">
+    <span id="cona-title">Beagle</span>
+    <span id="evaluation-title"> ROS Monitoring System</span>
+  </div>
+
+  <div id="header"></div>
+  <div id="main">
+    <div id="data">
+      <img
+        id="MapImage"
+        src="assets/images/cogaplex_bg.png"
+        style="max-width: 100%; height: auto"
+        alt=""
+      />
+    </div>
+
+    <div id="section">      
+      <div class="btn-section">
+        <div id="statusIndicator">
+          <p id="connecting"></p>
+          <p id="connected" style="display: none">Connected</p>
+          <p id="error" style="display: none">Error in the backend!</p>
+          <br />
+          <p id="closed" style="display: none">Connection closed.</p>
+        </div>
+        <button id="connect-button" onclick="initMain()">
+          Connecting Beagle
+        </button>
+        <button id="start_Nus" onclick="BtPublish('start_Nus')">start_Nus</button>
+        <div></div>
+        <button id="start_Lagacy" onclick="BtPublish('start_Lagacy')">start_Lagacy</button>
+        <div></div>
+        <button id="start_lidar" onclick="BtPublish('start_lidar')">start_lidar</button>
+        <div></div>
+        <button id="stop_lidar" onclick="BtPublish('stop_lidar')">stop_lidar</button>
+        <button id="stop_lidar" onclick="BtPublish('Encoder_reset')">Encoder_reset</button>
+      </div>
+    </div>
+  </div>
+  <div id="footer"></div>
+  <div><span class="ingredient"> Velocity Control </span></div>
+  <button id="test" onclick="BtPublish2('up')">up</button><button id="test1" onclick="BtPublish2('down')">down</button>
+  <button id="test2" onclick="BtPublish2('left')">left</button><button id="test3" onclick="BtPublish2('right')">right</button>
+  <button id="stop" onclick="BtPublish2('stop')">stop</button><button id="publish" onclick="BtPublish2('publish')">publish</button>
+  <div class="con">
+    <ul>
+        <li><span class="ingredient">Linear_Vel_X: </span><input type="text"     id="Linear" value="0.0"/></li>            
+        <li><span class="ingredient">Rotation_th: </span><input type="text" id="Rotation" value="0.0"/></li>            
+    </ul>
+</div>
+
+</html>
+
+<body>
+  <script type="text/javascript" type="text/javascript">
+    var linearx = 0.0;
+    var rotyaw = 0.0;
+    var ros = new ROSLIB.Ros();
+
+    function initMain() {
+      //ros.connect("ws://" + IP + ":9090");
+      ros.connect("ws://localhost:9090");
+      console.log("initMain");
+      // If there is an error on the backend, an 'error' emit will be emitted.
+      ros.on("error", function (error) {
+        document.getElementById("connecting").style.display = "none";
+        document.getElementById("connected").style.display = "none";
+        document.getElementById("closed").style.display = "none";
+        document.getElementById("error").style.display = "inline";
+        console.log(error);
+      });
+
+      // Find out exactly when we made a connection.
+      ros.on("connection", function () {
+        console.log("Connection made!");
+        document.getElementById("connecting").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("closed").style.display = "none";
+        document.getElementById("connected").style.display = "inline";
+        document.getElementById("connected").innerHTML = "Connected";
+      });
+
+      ros.on("close", function () {
+        console.log("Connection closed.");
+        document.getElementById("connecting").style.display = "none";
+        document.getElementById("connected").style.display = "none";
+        document.getElementById("closed").style.display = "inline";
+      });
+
+      // Create a connection to the rosbridge WebSocket server.
+    }
+
+    var mapimg = new ROSLIB.Topic({
+      ros: ros,
+      name: "/image/compressed",
+      messageType: "sensor_msgs/CompressedImage",
+    });
+    mapimg.subscribe((m) => {
+      document.getElementById("MapImage").src =
+        "data:image/jpg;base64," + m.data;
+    });
+
+    const rosTopic = new ROSLIB.Topic({
+      ros : ros,
+      name : '/cmd_vel',
+      messageType : 'geometry_msgs/Twist'
+    });
+
+    function BtPublish2(mode) {      
+      const twist = new ROSLIB.Message({
+        linear: {
+          x: linearx,
+          y: 0,
+          z: 0
+        },
+        angular: {
+          x: 0,
+          y: 0,
+          z: rotyaw
+        }
+      });
+
+      if(mode=='up')
+      {
+        linearx = linearx + 0.01;
+      }
+      if(mode=='down')
+      {
+        linearx = linearx - 0.01;
+      }     
+      if(mode=='left')
+      {
+        rotyaw = rotyaw + 1;
+      }        
+      if(mode=='right')
+      {
+        rotyaw = rotyaw - 1;
+      }      
+      document.getElementById("Linear").value  = linearx;
+      document.getElementById("Rotation").value  = rotyaw;
+      if(mode=='stop')
+      {
+        rotyaw = 0;
+        linearx = 0;
+        const twiststop = new ROSLIB.Message({
+          linear: {
+            x: linearx,
+            y: 0,
+            z: 0
+          },
+          angular: {
+            x: 0,
+            y: 0,
+            z: rotyaw
+          }
+        });
+        document.getElementById("Linear").value  = linearx;
+        document.getElementById("Rotation").value  = rotyaw;
+        rosTopic.publish(twiststop);
+      }
+      if(mode=='publish')
+      {
+        rosTopic.publish(twist);
+      }
+
+    }
+
+    var BtString = new ROSLIB.Topic({
+        ros: ros,
+        name: "/Cmd4Beagle",
+        messageType: "std_msgs/String",
+      });
+
+    function BtPublish(mode) {      
+      var String_ros = new ROSLIB.Message({
+        data: mode,
+      });
+      BtString.publish(String_ros);
+      console.log("PUB message:", messages_str);
+    }
+  </script>
+</body>

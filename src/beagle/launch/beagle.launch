@@ -1,0 +1,7 @@
+<launch>
+	<node name="beagle" pkg="beagle" type="beagle">
+		<param name="port" value="/dev/ttyUSB0" />
+		<param name="frame_id" value="laser" />
+		<param name="scan_topic" value="/scan" />
+	</node>	
+</launch>

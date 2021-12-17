@@ -1,0 +1,412 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+#CoNAtitle {
+  font-family: "Noto Sans KR", sans-serif;
+
+  font-size: 3vw;
+  margin-top: 10px;
+  margin-bottom: 8px;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#cona-title {
+  color: rgb(255, 206, 72);
+  text-shadow: -1px 0 rgb(156, 123, 32), 0 1px rgb(156, 123, 32),
+    1px 0 rgb(156, 123, 32), 0 -1px rgb(156, 123, 32);
+  font-weight: 900;
+  margin-left: 20px;
+}
+
+#evaluation-title {
+  color: #dadad9;
+  font-weight: 700;
+}
+
+
+body {
+  background-color: #13152c;
+
+  font-family: "Noto Sans KR", sans-serif;
+  overflow: hidden;
+  border-radius: 5px;
+  -webkit-app-region: drag;
+}
+
+#header {
+  height: 10px;
+}
+#main {
+  display: flex;
+}
+#footer {
+  width: 100vq;
+}
+
+#data {
+  width: 50%;
+  margin-left: 15px;
+  height: 100%;
+}
+
+#MapImage {
+  width: 480px;
+  height: 360px;
+  object-fit: contain;
+}
+
+
+#section {
+  width: 50%;
+  display: flex;
+}
+
+#section > .status {
+  width: 70%;
+}
+#section > .btn-section {
+  width: 30%;
+}
+
+button {
+  width: 15vh;
+  align-items: center;
+}
+
+#evaluation span {
+  color: #13152c;
+  border-radius: 10px;
+  background-color: rgb(209, 206, 206);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.status {
+  font-size: 2vmin;
+
+  color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+  height: 100%;
+}
+
+#navi-status {
+  margin-bottom: 8px;
+}
+
+#turns {
+  margin-bottom: 30px;
+}
+
+#evaluation {
+  margin-bottom: 10px;
+}
+
+#robot-id {
+  margin-bottom: 10px;
+}
+
+#ref {
+  margin-bottom: 10px;
+}
+
+#now {
+  margin-bottom: 10px;
+}
+
+#status-error {
+  margin-bottom: 40px;
+}
+
+.status input {
+  width: 50px;
+}
+
+.status form {
+  margin-top: 200px;
+}
+
+#RefPoseX {
+  float: right;
+  margin-right: 40px;
+}
+
+#RefPoseY {
+  float: right;
+  margin-right: 40px;
+}
+
+#RefPoseTh {
+  float: right;
+  margin-right: 40px;
+}
+
+#CurrentPoseX {
+  float: right;
+  margin-right: 40px;
+}
+
+#CurrentPoseY {
+  float: right;
+  margin-right: 40px;
+}
+
+#CurrentPoseTh {
+  float: right;
+  margin-right: 40px;
+}
+
+#ErrorOfPoseX {
+  float: right;
+  margin-right: 40px;
+}
+
+#ErrorOfPoseY {
+  float: right;
+  margin-right: 40px;
+}
+
+#ErrorOfPoseTh {
+  float: right;
+  margin-right: 40px;
+}
+
+.button {
+  color: black;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#connect-button {
+  margin-bottom: 6px;
+  height: 40px;
+  width: 150px;
+  border-radius: 7px;
+  background-color: rgb(209, 206, 206);
+  color: #13152c;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+#navigation {
+  color: white;
+
+  margin: 0 auto;
+}
+
+#mapping {
+  color: white;
+  margin: 0 auto;
+}
+
+#start_Nus {
+  margin-bottom: 6px;
+  margin-top: 6px;
+  height: 40px;
+  width: 150px;
+  border-radius: 7px;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+#start_Lagacy {
+  margin-bottom: 6px;
+  height: 40px;
+  width: 150px;
+  border-radius: 7px;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+#start_lidar {  
+  height: 40px;
+  width: 150px;
+  border-radius: 7px;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+#stop_lidar {  
+  height: 40px;
+  width: 150px;
+  border-radius: 7px;
+  font-weight: 700;
+  font-size: 20px;
+}
+#test {
+  height: 40px;
+  width: 100px;
+  border-radius: 7px;
+  font-weight: 700;
+  font-size: 20px;
+}
+#test1 {
+  height: 40px;
+  width: 100px;
+  border-radius: 7px;
+  font-weight: 700;
+  font-size: 20px;
+}
+#test2 {
+  height: 40px;
+  width: 100px;
+  border-radius: 7px;
+  font-weight: 700;
+  font-size: 20px;
+}
+#test3 {
+  height: 40px;
+  width: 100px;
+  border-radius: 7px;
+  font-weight: 700;
+  font-size: 20px;
+}
+#stop {
+  height: 40px;
+  width: 100px;
+  border-radius: 7px;
+  font-weight: 700;
+  font-size: 20px;
+}
+#publish {
+  height: 40px;
+  width: 100px;
+  border-radius: 7px;
+  font-weight: 700;
+  font-size: 20px;
+}
+#Linear {
+  font-weight: 700;
+  font-size: 20px;
+}
+#Rotation {
+  font-weight: 700;
+  font-size: 20px;
+}
+span.ingredient {
+  color: rgb(255, 255, 255);
+  font-size: 20px;
+}
+
+
+#add {
+  margin-bottom: 6px;
+  margin-top: 6px;
+  height: 40px;
+  border-radius: 7px;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+#saveRefpoint {
+  margin-bottom: 6px;
+  height: 40px;
+  border-radius: 7px;
+  font-weight: 700;
+  font-size: 17px;
+}
+
+#saveLog {
+  margin-bottom: 6px;
+  height: 40px;
+  border-radius: 7px;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+#saveCalimg {
+  margin-bottom: 6px;
+  height: 40px;
+  border-radius: 7px;
+  font-weight: 700;
+  font-size: 17px;
+}
+
+#connected {
+  color: rgb(9, 255, 0);
+}
+
+#statusIndicator {
+  color: white;
+  height: 70px;
+  font-size: 17px;
+}
+
+#error {
+  color: rgb(255, 0, 0);
+  font-size: small;
+}
+#closed {
+  font-size: small;
+}
+
+#connecting {
+  color: rgb(148, 147, 163);
+}
+
+#key-upper {
+  margin-top: 17px;
+  display: flex;
+  align-items: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#key-under {
+  margin-top: 10px;
+  display: flex;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  align-items: center;
+}
+#key-upper span {
+  font-size: 24px;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  background-color: rgb(235, 233, 233);
+  color: #13152c;
+  margin-right: 6px;
+  text-align: center;
+  border-radius: 18px;
+  font-weight: 900;
+}
+
+#key-under span {
+  font-weight: 900;
+  font-size: 24px;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  background-color: rgb(235, 233, 233);
+  color: #13152c;
+  margin-right: 6px;
+  text-align: center;
+  border-radius: 18px;
+}
+
+#key-under #reset {
+  width: 80px;
+  font-size: 22px;
+  font-weight: 900;
+  color: #2c9b00;
+  border-radius: 10px;
+  background-color: #ffffff;
+}
