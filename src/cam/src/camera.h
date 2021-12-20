@@ -6,26 +6,28 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <image_transport/image_transport.h>
 #include <stdio.h>
-
+#include <thread>
 
 #include "std_msgs/String.h"
 
 class AIcamera
 {
 private:
- bool pubimage = true;
-	
+	bool pubimage = true;
+	cv::VideoCapture cap_img;
+	cv::Mat img;
+	std::thread receive_thread;
+
 public:
 	bool connect(void);
+	bool img_stream(void);
 
 	ros::Subscriber AIcameraCMD;	
     image_transport::Publisher pub;
 	
 	
 
-	void CMD_Callback(const std_msgs::String::ConstPtr &msg);	
-
-
+	void CMD_Callback(const std_msgs::String::ConstPtr &msg);
 };
 
 void AIcamera::CMD_Callback(const std_msgs::String::ConstPtr &msg)
@@ -47,10 +49,7 @@ void AIcamera::CMD_Callback(const std_msgs::String::ConstPtr &msg)
 }
 
 bool AIcamera::connect(void)
-{
-	cv::Mat img;	
-
-	cv::VideoCapture cap_img;
+{			
 	cap_img.open("http://192.168.66.1:9527/videostream.cgi?loginuse=admin&loginpas=admin");	
 	if (!cap_img.isOpened())
 	{
@@ -61,6 +60,12 @@ bool AIcamera::connect(void)
 	{
 		std::cout << "open Cam: OK" << std::endl;
 	}
+	receive_thread = std::thread(&AIcamera::img_stream, this);	
+	return true;
+}
+
+bool AIcamera::img_stream(void)
+{
 	cap_img >> img;
 	sensor_msgs::ImagePtr msg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", img).toImageMsg();
 	ros::Rate rate(30);
@@ -68,14 +73,21 @@ bool AIcamera::connect(void)
 	while(ros::ok())
 	{
 		cap_img >> img;
-		msg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", img).toImageMsg();
-		pub.publish(msg);
+		if(pubimage)
+		{
+			msg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", img).toImageMsg();
+			pub.publish(msg);
+			cv::imshow("cam", img);
+			cv::waitKey(1);
+		}
+		else
+		{
+			cv::destroyAllWindows();
+			continue;			
+		}
+			
 
-		cv::imshow("cam", img);
-		cv::waitKey(1);
+		
 		rate.sleep();
 	}
-
-	
-	return true;
 }

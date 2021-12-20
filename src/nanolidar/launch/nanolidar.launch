@@ -1,7 +1,7 @@
 <launch>
 	<node name="nanolidar_f" pkg="nanolidar" type="nanolidar">
-		<param name="port" value="/dev/ttyUSB1" />
-		<param name="frame_id" value="laser_frame" />
+		<param name="port" value="/dev/ttyUSB0" />
+		<param name="frame_id" value="laser" />
 		<param name="scan_topic" value="/scan" />	
 	</node>
 </launch>
